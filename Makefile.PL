@@ -13,10 +13,8 @@ perl_version 5.006;
 tests_recursive('t');
 
 resources (
-   #homepage   => 'http://yourwebsitehere.com',
-   #IRC        => 'irc://irc.perl.org/#Code4Health-DB',
    license    => '',
-   #repository => 'git://github.com/OpusVL/Code4Health-DB.git',
+   repository => 'ssh://git/srv/git/Code4Health-DB',
    bugtracker => 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Code4Health-DB',
 );
 
@@ -29,8 +27,8 @@ build_requires (
 );
 
 requires (
-   #'ABC'              => 1.6,
-   #'Foo::Bar::Module' => 5.0401,
+  'DBIx::Class' => 0,
+  'DBIx::Class::Candy' => 0,
 );
 
 install_as_cpan;
