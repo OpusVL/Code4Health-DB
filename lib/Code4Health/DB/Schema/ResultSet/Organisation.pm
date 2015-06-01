@@ -14,7 +14,7 @@ sub import_csv
     my $self = shift;
     my $import_filename = shift;
     my $fh = shift;
-    my $args = shift;
+    my $args = shift || {};
     my $csv_args = $args->{csv} // { binary => 1 };
     my $csv = Text::CSV->new($csv_args);
     while(my $row = $csv->getline_hr($fh))
@@ -22,6 +22,7 @@ sub import_csv
         $row->{import_file} = $import_filename;
         $self->create($row);
     }
+    $csv->eof or $csv->error_diag();
 }
 
 __PACKAGE__->meta->make_immutable;
