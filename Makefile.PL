@@ -32,6 +32,7 @@ requires (
   'DBIx::Class::Candy' => 0,
   'OpusVL::AppKit' => 0,
   'OpusVL::Preferences' => 0,
+  'Text::CSV' => 0,
 );
 
 install_as_cpan;
