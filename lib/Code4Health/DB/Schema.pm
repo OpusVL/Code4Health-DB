@@ -1,8 +1,17 @@
 package Code4Health::DB::Schema;
 
-use base qw/DBIx::Class::Schema/;
+use Moose;
+use namespace::autoclean;
+
+extends 'DBIx::Class::Schema';
+with 'OpusVL::AppKit::RolesFor::Schema::DataInitialisation';
+with 'OpusVL::Preferences::RolesFor::Schema';
+__PACKAGE__->setup_preferences_schema;
+
 
 __PACKAGE__->load_namespaces();
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 
