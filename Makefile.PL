@@ -24,6 +24,7 @@ configure_requires (
 
 build_requires (
    'Test::More' => 0,
+   'Test::Compile' => 0,
 );
 
 requires (
