@@ -17,6 +17,7 @@ sub import_csv
     my $args = shift || {};
     my $csv_args = $args->{csv} // { binary => 1 };
     my $csv = Text::CSV->new($csv_args);
+    $csv->column_names(@csv_fields);
     while(my $row = $csv->getline_hr($fh))
     {
         $row->{import_file} = $import_filename;

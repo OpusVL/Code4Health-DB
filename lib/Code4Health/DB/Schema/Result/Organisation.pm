@@ -163,6 +163,12 @@ column unknown9 => {
     is_nullable => 1,
 };
 
+column prf_owner_type_id => {
+    data_type      => 'integer',
+    is_nullable    => 1,
+    is_foreign_key => 1
+};
+
 
 belongs_to prf_owner => 'OpusVL::Preferences::Schema::Result::PrfOwner',
     {
