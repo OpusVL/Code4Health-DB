@@ -23,6 +23,22 @@ column updated => {
     set_on_update => 1,
 };
 
+column username => {
+    data_type => 'varchar',
+    is_nullable => 1,
+};
+
+column surname => {
+    data_type => 'varchar',
+    is_nullable => 1,
+};
+
+column full_name => {
+    data_type => 'varchar',
+    is_nullable => 1,
+};
+
+
 column primary_organisation_id => {
     data_type => 'integer',
     is_nullable => 1,
@@ -85,6 +101,11 @@ Code4Health::DB::Schema::Result::Person
 
 =head2 secondary_organisation_links
 
+=head2 username
+
+=head2 surname
+
+=head2 full_name
 
 =head1 LICENSE AND COPYRIGHT
 

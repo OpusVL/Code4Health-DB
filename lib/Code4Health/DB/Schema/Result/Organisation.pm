@@ -189,7 +189,8 @@ has_many people_as_primary_org => 'Code4Health::DB::Schema::Result::Person', 'pr
 sub people
 {
     my $self = shift;
-    return $self->people_as_primary_org->union_all([$self->people_as_secondary_org]);
+    my $secondary = $self->people_as_secondary_org;
+    return $self->people_as_primary_org->union_all([$secondary]);
 }
 
 1;
