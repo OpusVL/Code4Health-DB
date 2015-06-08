@@ -29,4 +29,23 @@ ok my $person2 = Person->create({
 $person2->create_related('secondary_organisation_links', { organisation_id => $org->id });
 is $org->people->count, 2;
 
+# now check the optional parameter stuff
+#
+ok Person->prf_defaults->create({
+    name => 'mobile',
+    active => 1,
+    required => 0,
+    data_type => 'text',
+    comment => 'Mobile phone number',
+    default_value => '',
+});
+$person->prf_set('mobile', '07888 555111');
+is $person->prf_get('mobile'), '07888 555111';
+
+my $rs = Person->with_fields({
+    mobile => '07888 555111'
+});
+is $rs->count, 1;
+is $rs->first->username, 'test';
+
 done_testing;

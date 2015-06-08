@@ -4,6 +4,7 @@ use Moose;
 use MooseX::NonMoose;
 use Text::CSV;
 extends 'DBIx::Class::ResultSet';
+with 'OpusVL::Preferences::RolesFor::ResultSet::PrfOwner';
 __PACKAGE__->load_components(qw{Helper::ResultSet::SetOperations});
 
 my @csv_fields = qw/code name national_grouping high_level_health_geography address1 address2 address3 address4 address5 postcode open_date close_date unknown1 organisation_sub_type_code parent_organisation_code join_parent_date left_parent_date contact_phone_number unknown2 unknown3 unknown4 amended_record_indicator unknown5 unknown6 unknown7 unknown8 unknown9/;

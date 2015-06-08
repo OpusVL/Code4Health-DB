@@ -3,6 +3,7 @@ package Code4Health::DB::Schema::ResultSet::Person;
 use Moose;
 use MooseX::NonMoose;
 extends 'DBIx::Class::ResultSet';
+with 'OpusVL::Preferences::RolesFor::ResultSet::PrfOwner';
 
 __PACKAGE__->load_components(qw{Helper::ResultSet::SetOperations});
 
