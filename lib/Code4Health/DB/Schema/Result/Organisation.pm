@@ -182,6 +182,15 @@ belongs_to prf_owner_type => 'OpusVL::Preferences::Schema::Result::PrfOwnerType'
     };
 
 
+has_many secondary_organisation_links => 'Code4Health::DB::Schema::Result::SecondaryOrganistationLink', 'organisation_id';
+many_to_many people_as_secondary_org => secondary_organisation_links => 'person';
+has_many people_as_primary_org => 'Code4Health::DB::Schema::Result::Person', 'primary_organisation_id';
+
+sub people
+{
+    my $self = shift;
+    return $self->people_as_primary_org->union_all([$self->people_as_secondary_org]);
+}
 
 1;
 
@@ -261,6 +270,21 @@ Code4Health::DB::Schema::Result::Organisation
 
 =head2 prf_owner_type
 
+=head2 people
+
+All the people associated with this organisation.
+
+=head2 people_as_primary_org
+
+People who have this as their primary organisation.
+
+=head2 people_as_secondary_org
+
+People who have this organisation as a secondary organisation.
+
+=head2 secondary_organisation_links
+
+Links to the secondary organisations
 
 =head1 LICENSE AND COPYRIGHT
 

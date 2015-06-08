@@ -33,6 +33,7 @@ requires (
   'OpusVL::AppKit' => 0,
   'OpusVL::Preferences' => 0,
   'Text::CSV' => 0,
+  'DBIx::Class::Helper::ResultSet::SetOperations' => 0,
 );
 
 install_as_cpan;
