@@ -34,6 +34,7 @@ requires (
   'OpusVL::Preferences' => 0,
   'Text::CSV' => 0,
   'DBIx::Class::Helper::ResultSet::SetOperations' => 0,
+  'Code4Health::LDAP' => 0,
 );
 
 install_as_cpan;

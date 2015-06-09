@@ -2,12 +2,31 @@ package Code4Health::DB::Schema;
 
 use Moose;
 use namespace::autoclean;
+use Code4Health::LDAP;
 
 extends 'DBIx::Class::Schema';
 with 'OpusVL::AppKit::RolesFor::Schema::DataInitialisation';
 with 'OpusVL::Preferences::RolesFor::Schema';
 __PACKAGE__->setup_preferences_schema;
 
+has host => (is => 'rw', isa => 'Str');
+has dn => (is => 'rw', isa => 'Str');
+has user => (is => 'rw', isa => 'Str', default => 'admin');
+has password => (is => 'rw', isa => 'Str');
+
+has ldap_client => (is => 'ro', lazy => 1, builder => '_setup_ldap_client');
+
+sub _setup_ldap_client
+{
+    my $self = shift;
+    my $ldap = Code4Health::LDAP->new({ 
+        host => $self->host,
+        dn => $self->dn,
+        user => $self->user,
+        password => $self->password,
+    });
+    return $ldap;
+}
 
 __PACKAGE__->load_namespaces();
 
