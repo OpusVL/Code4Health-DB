@@ -13,6 +13,7 @@ ok my $person = Person->create({
     username => 'test',
     full_name => 'Test Person',
     surname => 'Person',
+    email_address => 'support@opusvl.com',
 });
 
 $person->primary_organisation_id($org->id);
@@ -24,6 +25,7 @@ ok my $person2 = Person->create({
     username => 'another',
     full_name => 'Another Person',
     surname => 'Person',
+    email_address => 'support@opusvl.com',
 });
 
 $person2->create_related('secondary_organisation_links', { organisation_id => $org->id });

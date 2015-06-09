@@ -25,10 +25,20 @@ column updated => {
 
 column username => {
     data_type => 'varchar',
-    is_nullable => 1,
+    is_nullable => 0,
 };
 
 column surname => {
+    data_type => 'varchar',
+    is_nullable => 1,
+};
+
+column title => {
+    data_type => 'varchar',
+    is_nullable => 1,
+};
+
+column first_name => {
     data_type => 'varchar',
     is_nullable => 1,
 };
@@ -38,6 +48,10 @@ column full_name => {
     is_nullable => 1,
 };
 
+column email_address => {
+    data_type => 'varchar',
+    is_nullable => 0,
+};
 
 column primary_organisation_id => {
     data_type => 'integer',
