@@ -11,20 +11,32 @@ sub add_user
 {
     my $self = shift;
     my $data = shift;
-    # FIXME: use a transaction
     my $schema = $self->result_source->schema;
     my $ldap = $schema->ldap_client;
     my $guard = $schema->txn_scope_guard;
-    # FIXME: need person group number
     my $password = delete $data->{password};
     my $username = $data->{username};
     my $fullname = $data->{full_name};
     my $surname = $data->{surname};
     my $user = $self->create($data);
-    $ldap->add_user($username, $fullname, $surname, $password);
+    # FIXME: figure out user id.
+    my $user_id = 'FIXME';
+    $ldap->add_user($username, $fullname, $surname, $password, $self->group_id, $user_id);
     $guard->commit;
     return $user;
 }
+
+has group_id => (is => 'ro', isa => 'Str', lazy => 1, builder => '_build_group_id');
+
+sub _build_group_id
+{
+    my $self = shift;
+    my $schema = $self->result_source->schema;
+    my $ldap = $schema->ldap_client;
+    my $info = $ldap->get_group_info('Person');
+    return $info->{gidNumber};
+}
+
 
 __PACKAGE__->meta->make_immutable;
 1;
