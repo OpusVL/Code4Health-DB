@@ -85,6 +85,18 @@ belongs_to primary_organisation => 'Code4Health::DB::Schema::Result::Organisatio
 has_many secondary_organisation_links => 'Code4Health::DB::Schema::Result::SecondaryOrganistationLink', 'person_id';
 many_to_many secondary_organisations => secondary_organisation_links => 'organisation';
 
+sub check_password
+{
+    my $self = shift;
+    my $password = shift;
+    return $self->result_source->schema->ldap_client->authenticate($self->username, $password);
+}
+
+after delete => sub {
+    my $self = shift;
+    return $self->result_source->schema->ldap_client->remove_user($self->username);
+};
+
 1;
 
 =head1 NAME

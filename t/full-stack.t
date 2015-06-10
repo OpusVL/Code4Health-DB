@@ -28,6 +28,8 @@ ok my $user = Person->add_user({
     first_name => 'A',
 });
 
-# auth the user.
+ok $user->check_password('fake');
+
+$user->delete;
 
 done_testing;
