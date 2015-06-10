@@ -89,13 +89,19 @@ sub check_password
 {
     my $self = shift;
     my $password = shift;
-    return $self->result_source->schema->ldap_client->authenticate($self->username, $password);
+    return $self->ldap_client->authenticate($self->username, $password);
 }
 
 after delete => sub {
     my $self = shift;
-    return $self->result_source->schema->ldap_client->remove_user($self->username);
+    return $self->ldap_client->remove_user($self->username);
 };
+
+sub ldap_client
+{
+    my $self = shift;
+    return $self->result_source->schema->ldap_client;
+}
 
 1;
 
