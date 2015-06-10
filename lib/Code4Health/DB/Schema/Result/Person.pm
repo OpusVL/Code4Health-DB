@@ -174,6 +174,20 @@ Code4Health::DB::Schema::Result::Person
 
 Method provided to hook into Catalyst Auth system.
 
+=head2 ldap_info
+
+Returns all the ldap about the user.  Note that this is
+a cached attribute.
+
+=head2 groups
+
+Returns an arrayref of groups the user is a member of.
+
+    $user->groups; 
+    # ['Person', 'Verified']
+
+Note that this is cached the first time you call it.
+
 =head2 add_to_group
 
     $user->add_to_group('Verified');
