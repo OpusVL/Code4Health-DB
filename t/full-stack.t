@@ -29,6 +29,10 @@ ok my $user = Person->add_user({
 });
 
 ok $user->check_password('fake');
+$user->add_to_group('Verified');
+$user->add_to_group('Moderator');
+$user->remove_from_group('Moderator');
+eq_or_diff $user->groups, ['Person', 'Verified'];
 
 $user->delete;
 

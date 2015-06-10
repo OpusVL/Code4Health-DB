@@ -89,15 +89,46 @@ sub check_password
 {
     my $self = shift;
     my $password = shift;
-    return $self->ldap_client->authenticate($self->username, $password);
+    return $self->_ldap_client->authenticate($self->username, $password);
 }
 
 after delete => sub {
     my $self = shift;
-    return $self->ldap_client->remove_user($self->username);
+    return $self->_ldap_client->remove_user($self->username);
 };
 
-sub ldap_client
+sub add_to_group
+{
+    my $self = shift;
+    my $group_name = shift;
+    return $self->_ldap_client->add_to_group($group_name, $self->username);
+}
+
+sub remove_from_group
+{
+    my $self = shift;
+    my $group_name = shift;
+    return $self->_ldap_client->remove_from_group($group_name, $self->username);
+}
+
+
+has ldap_info => (is => 'ro', lazy => 1, builder => '_build_ldap_info');
+has groups => (is => 'ro', lazy => 1, builder => '_build_groups');
+
+sub _build_ldap_info
+{
+    my $self = shift;
+    my $info = $self->_ldap_client->get_user_info($self->username);
+    return $info;
+}
+
+sub _build_groups
+{
+    my $self = shift;
+    return $self->ldap_info->{groups};
+}
+
+sub _ldap_client
 {
     my $self = shift;
     return $self->result_source->schema->ldap_client;
@@ -138,6 +169,18 @@ Code4Health::DB::Schema::Result::Person
 =head2 surname
 
 =head2 full_name
+
+=head2 check_password
+
+Method provided to hook into Catalyst Auth system.
+
+=head2 add_to_group
+
+    $user->add_to_group('Verified');
+
+=head2 remove_from_group
+
+    $user->remove_from_group('Moderator');
 
 =head1 LICENSE AND COPYRIGHT
 
