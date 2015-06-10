@@ -19,8 +19,7 @@ sub add_user
     my $fullname = $data->{full_name};
     my $surname = $data->{surname};
     my $user = $self->create($data);
-    # FIXME: figure out user id.
-    my $user_id = 'FIXME';
+    my $user_id = $self->next_uid;
     $ldap->add_user($username, $fullname, $surname, $password, $self->group_id, $user_id);
     $guard->commit;
     return $user;
@@ -37,6 +36,30 @@ sub _build_group_id
     return $info->{gidNumber};
 }
 
+sub next_uid
+{
+    my $self = shift;
+    
+    my $next_uid;
+    my $query = 'select nextval(?);';
+    $self->result_source->storage->dbh_do(sub {
+        my ($storage, $dbh) = @_;
+        my $result = $dbh->selectcol_arrayref($query, {}, 'next_uid');
+        $next_uid = $result->[0];
+    });
+    return $next_uid;
+}
+
+sub initdb 
+{
+    my $self = shift;
+    # setup sequence
+    my $query = 'CREATE SEQUENCE next_uid MINVALUE 10000 MAXVALUE 50000';
+    $self->result_source->storage->dbh_do(sub {
+        my ($storage, $dbh) = @_;
+        $dbh->do($query);
+    });
+}
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -55,6 +78,14 @@ Code4Health::DB::Schema::ResultSet::Person
 
 Create a user.  Use this method rather than create directly to ensure the 
 corresponding LDAP user is created.
+
+=head2 initdb
+
+Called when a new database is setup.
+
+=head2 next_uid
+
+Returns the next userid.  This is stored in the postgres database as a sequence.
 
 =head1 ATTRIBUTES
 
