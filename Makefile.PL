@@ -25,6 +25,8 @@ configure_requires (
 build_requires (
    'Test::More' => 0,
    'Test::Compile' => 0,
+   'Test::DBIx::Class' => 0,
+   'Test::PostgreSQL' => 0,
 );
 
 requires (
