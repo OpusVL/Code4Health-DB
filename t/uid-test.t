@@ -1,7 +1,6 @@
 use Test::Most;
 use Test::DBIx::Class {
     schema_class => 'Code4Health::DB::Schema',
-    fail_on_schema_break => 1,
     traits => [qw/Testpostgresql/],
 }, 'Person';
 
