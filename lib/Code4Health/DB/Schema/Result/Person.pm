@@ -134,6 +134,26 @@ sub _ldap_client
     return $self->result_source->schema->ldap_client;
 }
 
+sub vanilla_roles
+{
+    my $self = shift;
+    my $groups = $self->groups;
+    my @roles;
+    if(grep { /Moderator/ } @$groups)
+    {
+        push @roles, 'moderator';
+    }
+    if(grep { /Verified/ } @$groups)
+    {
+        push @roles, 'member';
+    }
+    unless(@roles)
+    {
+        push @roles, 'applicant';
+    }
+    return join ',', @roles;
+}
+
 1;
 
 =head1 NAME
@@ -143,6 +163,10 @@ Code4Health::DB::Schema::Result::Person
 =head1 DESCRIPTION
 
 =head1 METHODS
+
+=head2 vanilla_roles
+
+List of roles within vanilla this Person should have.
 
 =head1 ATTRIBUTES
 
