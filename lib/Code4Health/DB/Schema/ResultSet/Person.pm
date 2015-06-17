@@ -21,6 +21,7 @@ sub add_user
     my $user = $self->create($data);
     my $user_id = $self->next_uid;
     $ldap->add_user($username, $fullname, $surname, $password, $self->group_id, $user_id);
+    $ldap->add_to_group('Verified', $username);
     $guard->commit;
     return $user;
 }
