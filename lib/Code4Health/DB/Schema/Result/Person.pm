@@ -1,9 +1,10 @@
 package Code4Health::DB::Schema::Result::Person;
 
-use DBIx::Class::Candy -autotable => v1, -components => ['TimeStamp'];
+use DBIx::Class::Candy -autotable => v1, -components => [qw/TimeStamp InflateColumn::DateTime/];
 use Moose;
 use MooseX::NonMoose;
 with 'OpusVL::Preferences::RolesFor::Result::PrfOwner';
+with 'OpusVL::AppKitX::PasswordReset::RolesFor::Result';
 
 primary_column id => {
     data_type => 'int',
@@ -65,6 +66,15 @@ column prf_owner_type_id => {
     is_foreign_key => 1
 };
 
+column password_reset_hash => {
+    data_type => 'text',
+    is_nullable => 1,
+};
+
+column password_reset_expiry => {
+    data_type => 'timestamp',
+    is_nullable => 1,
+};
 
 belongs_to prf_owner => 'OpusVL::Preferences::Schema::Result::PrfOwner',
     {
@@ -95,6 +105,18 @@ sub check_password
 after delete => sub {
     my $self = shift;
     return $self->_ldap_client->remove_user($self->username);
+};
+
+around update => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $columns = shift;
+
+    if ($columns and my $pass = delete $columns->{password}) {
+        $self->_ldap_client->set_password($self->username, $pass);
+    }
+
+    $self->$orig($columns);
 };
 
 sub add_to_group
