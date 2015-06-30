@@ -5,9 +5,9 @@ use Moose;
 use MooseX::NonMoose;
 with 'OpusVL::Preferences::RolesFor::Result::PrfOwner';
 
-primary_column id => {
-    data_type => 'int',
-    is_auto_increment => 1,
+primary_column code => {
+    data_type => 'text',
+    is_nullable => 0,
 };
 
 column import_file => {
@@ -26,11 +26,6 @@ column updated => {
     is_nullable => 0,
     set_on_create => 1,
     set_on_update => 1,
-};
-
-column code => {
-    data_type => 'varchar',
-    is_nullable => 1,
 };
 
 column name => {
@@ -163,6 +158,11 @@ column unknown9 => {
     is_nullable => 1,
 };
 
+column prf_id => {
+    data_type => 'int',
+    is_auto_increment => 1,
+};
+
 column prf_owner_type_id => {
     data_type      => 'integer',
     is_nullable    => 1,
@@ -172,7 +172,7 @@ column prf_owner_type_id => {
 
 belongs_to prf_owner => 'OpusVL::Preferences::Schema::Result::PrfOwner',
     {
-        'foreign.prf_owner_id'      => 'self.id',
+        'foreign.prf_owner_id'      => 'self.prf_id',
         'foreign.prf_owner_type_id' => 'self.prf_owner_type_id'
     };
 
@@ -185,6 +185,8 @@ belongs_to prf_owner_type => 'OpusVL::Preferences::Schema::Result::PrfOwnerType'
 has_many secondary_organisation_links => 'Code4Health::DB::Schema::Result::SecondaryOrganisationLink', 'organisation_id';
 many_to_many people_as_secondary_org => secondary_organisation_links => 'person';
 has_many people_as_primary_org => 'Code4Health::DB::Schema::Result::Person', 'primary_organisation_id';
+
+sub prf_id_column {'prf_id'}
 
 sub people
 {

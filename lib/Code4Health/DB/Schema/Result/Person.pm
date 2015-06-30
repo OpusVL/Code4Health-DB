@@ -89,7 +89,7 @@ belongs_to prf_owner_type => 'OpusVL::Preferences::Schema::Result::PrfOwnerType'
 
 belongs_to primary_organisation => 'Code4Health::DB::Schema::Result::Organisation',
     {
-        'foreign.id' => 'self.primary_organisation_id'
+        'foreign.code' => 'self.primary_organisation_id'
     };
 
 has_many secondary_organisation_links => 'Code4Health::DB::Schema::Result::SecondaryOrganisationLink', 'person_id';
