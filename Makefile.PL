@@ -33,7 +33,7 @@ requires (
   'DBIx::Class' => 0,
   'DBIx::Class::Candy' => 0,
   'OpusVL::AppKit' => 0,
-  'OpusVL::Preferences' => 0,
+  'OpusVL::Preferences' => 0.13,
   'OpusVL::AppKitX::PasswordReset' => 0,
   'Text::CSV' => 0,
   'DBIx::Class::Helper::ResultSet::SetOperations' => 0,
