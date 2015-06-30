@@ -23,7 +23,7 @@ sub import_csv
         $row->{import_file} = $import_filename;
         $self->create($row);
     }
-    $csv->eof or $csv->error_diag();
+    $csv->eof or die $csv->error_diag();
 }
 
 1;
