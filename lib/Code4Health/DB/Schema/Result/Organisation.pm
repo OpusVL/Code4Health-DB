@@ -182,7 +182,7 @@ belongs_to prf_owner_type => 'OpusVL::Preferences::Schema::Result::PrfOwnerType'
     };
 
 
-has_many secondary_organisation_links => 'Code4Health::DB::Schema::Result::SecondaryOrganistationLink', 'organisation_id';
+has_many secondary_organisation_links => 'Code4Health::DB::Schema::Result::SecondaryOrganisationLink', 'organisation_id';
 many_to_many people_as_secondary_org => secondary_organisation_links => 'person';
 has_many people_as_primary_org => 'Code4Health::DB::Schema::Result::Person', 'primary_organisation_id';
 

@@ -1,4 +1,4 @@
-package Code4Health::DB::Schema::Result::SecondaryOrganistationLink;
+package Code4Health::DB::Schema::Result::SecondaryOrganisationLink;
 
 use DBIx::Class::Candy -autotable => v1, -components => ['TimeStamp'];
 use Moose;
@@ -16,7 +16,7 @@ column person_id => {
 };
 
 column organisation_id => {
-    data_type => 'integer',
+    data_type => 'text',
     is_nullable => 0,
     is_foreign_key => 1,
 };
@@ -35,7 +35,7 @@ belongs_to person => 'Code4Health::DB::Schema::Result::Person',
 
 belongs_to organisation => 'Code4Health::DB::Schema::Result::Organisation',
     {
-        'foreign.id' => 'self.organisation_id'
+        'foreign.code' => 'self.organisation_id'
     };
 
 

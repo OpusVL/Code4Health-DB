@@ -92,7 +92,7 @@ belongs_to primary_organisation => 'Code4Health::DB::Schema::Result::Organisatio
         'foreign.id' => 'self.primary_organisation_id'
     };
 
-has_many secondary_organisation_links => 'Code4Health::DB::Schema::Result::SecondaryOrganistationLink', 'person_id';
+has_many secondary_organisation_links => 'Code4Health::DB::Schema::Result::SecondaryOrganisationLink', 'person_id';
 many_to_many secondary_organisations => secondary_organisation_links => 'organisation';
 
 sub check_password
