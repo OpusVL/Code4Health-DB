@@ -18,10 +18,13 @@ sub import_csv
     my $csv_args = $args->{csv} // { binary => 1 };
     my $csv = Text::CSV->new($csv_args);
     $csv->column_names(@csv_fields);
+
+    # NOTE: you can't use a transaction here because Preferences relies on
+    # autopopulated values.
     while(my $row = $csv->getline_hr($fh))
     {
         $row->{import_file} = $import_filename;
-        $self->create($row);
+        $self->update_or_create($row);
     }
     $csv->eof or die $csv->error_diag();
 }
