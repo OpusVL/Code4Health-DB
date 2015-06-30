@@ -11,150 +11,150 @@ primary_column code => {
 };
 
 column import_file => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column created => {
-    data_type => 'timestamp',
+    data_type => 'timestamptz',
     is_nullable => 0,
     set_on_create => 1,
 };
 
 column updated => {
-    data_type => 'timestamp',
+    data_type => 'timestamptz',
     is_nullable => 0,
     set_on_create => 1,
     set_on_update => 1,
 };
 
 column name => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column national_grouping => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column high_level_health_geography => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column address1 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column address2 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column address3 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column address4 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column address5 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column postcode => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column open_date => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column close_date => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column organisation_sub_type_code => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column parent_organisation_code => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column join_parent_date => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column left_parent_date => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column contact_phone_number => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column amended_record_indicator => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column unknown1 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column unknown2 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column unknown3 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column unknown4 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column unknown5 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column unknown6 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column unknown7 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column unknown8 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 
 column unknown9 => {
-    data_type => 'varchar',
+    data_type => 'text',
     is_nullable => 1,
 };
 

@@ -55,7 +55,7 @@ column email_address => {
 };
 
 column primary_organisation_id => {
-    data_type => 'integer',
+    data_type => 'text',
     is_nullable => 1,
     is_foreign_key => 1,
 };
