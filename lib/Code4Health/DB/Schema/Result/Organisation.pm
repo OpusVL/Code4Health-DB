@@ -289,6 +289,10 @@ People who have this organisation as a secondary organisation.
 
 Links to the secondary organisations
 
+=head2 prf_id_column
+
+This Result class uses C<prf_id> as the Preferences identifier.
+
 =head1 LICENSE AND COPYRIGHT
 
 Copyright 2015 OpusVL.
