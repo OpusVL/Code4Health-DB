@@ -60,6 +60,11 @@ column primary_organisation_id => {
     is_foreign_key => 1,
 };
 
+column primary_organisation_other => {
+    data_type => 'text',
+    is_nullable => 1,
+};
+
 column prf_owner_type_id => {
     data_type      => 'integer',
     is_nullable    => 1,
@@ -156,6 +161,16 @@ sub _ldap_client
     return $self->result_source->schema->ldap_client;
 }
 
+sub primary_organisation_name {
+    my $self = shift;
+
+    if ($self->primary_organisation_id) {
+        return $self->primary_organisation->name;
+    }
+
+    return $self->primary_organisation_other;
+}
+
 sub vanilla_roles
 {
     my $self = shift;
@@ -186,6 +201,14 @@ Code4Health::DB::Schema::Result::Person
 
 =head1 METHODS
 
+=head2 primary_organisation_name
+
+If the user has a primary organisation from the Organisations table, its name is returned.
+
+Otherwise, the value of primary_organisation_other is returned.
+
+The return value may thus be C<undef>, if neither is set.
+
 =head2 vanilla_roles
 
 List of roles within vanilla this Person should have.
@@ -199,6 +222,15 @@ List of roles within vanilla this Person should have.
 =head2 updated
 
 =head2 primary_organisation_id
+
+FK into Organisations table. Actually the ODS code. Nullable.
+
+=head2 primary_organisation_other
+
+Provides the name of the "Other" organisation the user belongs to.
+
+Conceptually overridden by C<primary_organisation_id>. See
+L<C<primary_organisation_name>>.
 
 =head2 prf_owner_type_id
 
