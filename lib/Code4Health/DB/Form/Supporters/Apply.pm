@@ -3,6 +3,17 @@ package Code4Health::DB::Form::Supporters::Apply;
 #--
 # Boilerplate
 #--
+
+=head1 NAME
+
+Code4Health::DB::Form::Supports::Apply
+
+=head1 DESCRIPTION
+
+HTML::FormHandler module for C4H Supports Apply form
+
+=cut
+
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
@@ -48,6 +59,14 @@ has_field 'submit'   => (
 # Options
 #--
 
+=head1 METHODS
+
+=head2 options_service_type
+
+Returns a hash of options for the community_type field
+
+=cut
+
 sub options_service_type {
     return (
         "Training"      => "Training",
@@ -59,6 +78,15 @@ sub options_service_type {
 #--
 # Footer
 #--
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2015 OpusVL.
+
+This software is licensed according to the "IP Assignment Schedule" provided with the development project.
+
+=cut
+
 no HTML::FormHandler::Moose;
 1;
 __END__
