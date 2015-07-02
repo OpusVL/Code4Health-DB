@@ -38,6 +38,7 @@ requires (
   'Text::CSV' => 0,
   'DBIx::Class::Helper::ResultSet::SetOperations' => 0,
   'Code4Health::LDAP' => 0,
+  'HTML::FormHandler::Moose' => 0,
 );
 
 install_as_cpan;
