@@ -81,6 +81,21 @@ column password_reset_expiry => {
     is_nullable => 1,
 };
 
+column registrant_category => {
+    data_type => 'text',
+    is_nullable => 1,
+};
+
+column registrant_category_other => {
+    data_type => 'text',
+    is_nullable => 1,
+};
+
+column email_preferences => {
+    data_type => 'text[]',
+    is_nullable => 1,
+};
+
 belongs_to prf_owner => 'OpusVL::Preferences::Schema::Result::PrfOwner',
     {
         'foreign.prf_owner_id'      => 'self.id',
