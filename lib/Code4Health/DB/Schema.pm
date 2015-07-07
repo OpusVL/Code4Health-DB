@@ -8,8 +8,6 @@ extends 'DBIx::Class::Schema';
 with 'OpusVL::AppKit::RolesFor::Schema::DataInitialisation';
 with 'OpusVL::Preferences::RolesFor::Schema';
 
-our $VERSION = '0.04';
-
 __PACKAGE__->load_components('DeploymentHandler::VersionStorage::Standard::Component');
 __PACKAGE__->setup_preferences_schema;
 
@@ -31,6 +29,8 @@ sub _setup_ldap_client
     });
     return $ldap;
 }
+
+sub schema_version { 1 }
 
 __PACKAGE__->load_namespaces();
 
