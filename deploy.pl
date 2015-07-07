@@ -19,36 +19,43 @@ my $schema = Code4Health::DB::Schema->connect({
     password => 'amdpass'
 });
 my $dh = DBIx::Class::DeploymentHandler->new({ schema => $schema });
+my $version = $option{target} || $schema->schema_version;
 
 my %command = (
-    install => \&install,
+    init => \&init,
     downgrade => \&downgrade,
     upgrade => \&upgrade,
     deploy => \&deploy,
 );
 
-my $version = $option{target} || $schema->schema_version;
 $command{$command || 'upgrade'}->($dh);
 
-sub install {
+sub init {
     my $dh = shift;
-    #$dh->prepare_version_storage_install;
-    $dh->prepare_install({
-        version => $version
-    });
+
+    # Create source files for this version
+    $dh->prepare_install;
+
+    # Create the versioning table
     $dh->install_version_storage;
+
+    # Register this version in the versioning table
     $dh->add_database_version({ 
-        version => $version 
+        version => $schema->schema_version 
     });
 }
 
 sub downgrade {
     my $dh = shift;
-    $dh->downgrade;
+    $dh->prepare_downgrade;
+    $dh->downgrade({
+        to_version => $version
+    });
 }
 
 sub upgrade {
     my $dh = shift;
+    $dh->prepare_deploy;
     $dh->prepare_upgrade({
         to_version => $version
     });
@@ -59,10 +66,11 @@ sub upgrade {
 
 sub deploy {
     my $dh = shift;
-    $dh->prepare_install({
-        version => $version
-    });
-    $dh->install_version_storage;
+
+    # Create source files for this version
+    $dh->prepare_install;
+
+    # Install everything.
     $dh->install({
         version => $version
     });
