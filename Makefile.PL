@@ -32,6 +32,7 @@ build_requires (
 requires (
   'DBIx::Class' => 0,
   'DBIx::Class::Candy' => 0,
+  'DBIx::Class::DeploymentHandler' => 0,
   'OpusVL::AppKit' => 0,
   'OpusVL::Preferences' => 0.13,
   'OpusVL::AppKitX::PasswordReset' => 0,
