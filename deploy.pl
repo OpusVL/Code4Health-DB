@@ -27,13 +27,19 @@ my %command = (
     deploy => \&deploy,
 );
 
+my $version = $option{target} || $schema->schema_version;
 $command{$command || 'upgrade'}->($dh);
 
 sub install {
     my $dh = shift;
-    $dh->prepare_version_storage_install;
+    #$dh->prepare_version_storage_install;
+    $dh->prepare_install({
+        version => $version
+    });
     $dh->install_version_storage;
-    $dh->add_database_version({ version => $option{target} || $schema->schema_version });
+    $dh->add_database_version({ 
+        version => $version 
+    });
 }
 
 sub downgrade {
@@ -43,11 +49,21 @@ sub downgrade {
 
 sub upgrade {
     my $dh = shift;
-    $dh->upgrade;
+    $dh->prepare_upgrade({
+        to_version => $version
+    });
+    $dh->upgrade({
+        to_version => $version
+    });
 }
 
 sub deploy {
     my $dh = shift;
-    $dh->prepare_deploy;
-    $dh->install;
+    $dh->prepare_install({
+        version => $version
+    });
+    $dh->install_version_storage;
+    $dh->install({
+        version => $version
+    });
 }
