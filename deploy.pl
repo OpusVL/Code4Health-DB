@@ -5,6 +5,7 @@ use warnings;
 use 5.014;
 
 use Code4Health::DB::Schema;
+use Try::Tiny;
 use DBIx::Class::DeploymentHandler;
 use Getopt::Long qw(:config gnu_getopt);
 
@@ -26,6 +27,7 @@ my %command = (
     downgrade => \&downgrade,
     upgrade => \&upgrade,
     deploy => \&deploy,
+    'set-version' => \&set_version,
 );
 
 $command{$command || 'upgrade'}->($dh);
@@ -43,6 +45,39 @@ sub init {
     $dh->add_database_version({ 
         version => $schema->schema_version 
     });
+}
+
+sub set_version {
+    my $dh = shift;
+
+    try {
+        $dh->prepare_install;
+    }
+    catch {
+        if (/Cannot overwrite/) {
+            say "Source files for version $version already exist.";
+            return 0;
+        }
+        else {
+            die $_;
+        }
+    };
+
+    try {
+        $dh->add_database_version({ 
+            version => $schema->schema_version 
+        });
+        say "Database set to version $version";
+    }
+    catch {
+        if (/Key.+already exists/) {
+            say "Already on version $version";
+            return 0;
+        }
+        else {
+            die $_;
+        }
+    };
 }
 
 sub downgrade {
