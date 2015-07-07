@@ -48,6 +48,10 @@ Code4Health::DB::Schema
 
 =head1 ATTRIBUTES
 
+=head2 schema_version
+
+Provides the version of the schema to DeploymentHandler. Increment this if you
+ever change the shape of the schema.
 
 =head1 LICENSE AND COPYRIGHT
 
