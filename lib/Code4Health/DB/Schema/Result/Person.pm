@@ -3,6 +3,8 @@ package Code4Health::DB::Schema::Result::Person;
 use DBIx::Class::Candy -autotable => v1, -components => [qw/TimeStamp InflateColumn::DateTime/];
 use Moose;
 use MooseX::NonMoose;
+use Try::Tiny;
+use Safe::Isa;
 with 'OpusVL::Preferences::RolesFor::Result::PrfOwner';
 with 'OpusVL::AppKitX::PasswordReset::RolesFor::Result';
 
@@ -119,7 +121,17 @@ sub check_password
 {
     my $self = shift;
     my $password = shift;
-    return $self->_ldap_client->authenticate($self->username, $password);
+    return try {
+            $self->_ldap_client->authenticate($self->username, $password);
+        }
+        catch {
+            if ($_->$_isa('failure::code4health::ldap::authenticationfailure')) {
+                return 0;
+            }
+
+            $_->throw
+        }
+    ;
 }
 
 after delete => sub {
