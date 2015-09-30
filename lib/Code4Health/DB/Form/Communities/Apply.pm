@@ -31,9 +31,9 @@ already exist?},
     required    => 1,
 );
 
-has_field 'name' => ( type => 'Text' );
+has_field 'name' => ( type => 'Text', required => 1 );
 has_field 'postcode' => ( type => 'Text' );
-has_field 'email_address' => ( type => 'Email' );
+has_field 'email_address' => ( type => 'Email', required => 1 );
 has_field 'telephone' => ( type => 'Text' );
 has_field 'community_type' => ( type => 'Select', label => 'What type of community are you creating?' );
 has_field 'community_type_comments' => ( type => 'TextArea' );
