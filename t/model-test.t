@@ -2,7 +2,7 @@ use Test::Most;
 use Test::DBIx::Class {
     schema_class => 'Code4Health::DB::Schema',
     traits => [qw/Testpostgresql/],
-}, 'Organisation', 'Person';
+}, 'Organisation', 'Person', 'Community';
 
 ok my $org = Organisation->create({
     code => 'test',
@@ -49,5 +49,15 @@ my $rs = Person->with_fields({
 });
 is $rs->count, 1;
 is $rs->first->username, 'test';
+
+ok my $community = Community->create({
+    name => 'Hackers',
+});
+$person->create_related('community_links', { community_id => $community->id });
+is $person->communities->count, 1;
+is $community->people->count, 1;
+
+$community->delete;
+is $org->people->count, 2;
 
 done_testing;

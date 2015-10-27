@@ -115,7 +115,9 @@ belongs_to primary_organisation => 'Code4Health::DB::Schema::Result::Organisatio
     };
 
 has_many secondary_organisation_links => 'Code4Health::DB::Schema::Result::SecondaryOrganisationLink', 'person_id';
+has_many community_links => 'Code4Health::DB::Schema::Result::CommunityLink', 'person_id';
 many_to_many secondary_organisations => secondary_organisation_links => 'organisation';
+many_to_many communities => community_links => 'community';
 
 sub check_password
 {
