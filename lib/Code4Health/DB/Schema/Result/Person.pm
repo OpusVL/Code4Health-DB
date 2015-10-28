@@ -167,6 +167,13 @@ sub remove_from_group
     return $self->_ldap_client->remove_from_group($group_name, $self->username);
 }
 
+sub member_of_community
+{
+    my $self = shift;
+    my $community_code = shift;
+    return $self->communities->search({ code => $community_code })->count > 0;
+}
+
 
 has ldap_info => (is => 'ro', lazy => 1, builder => '_build_ldap_info');
 has groups => (is => 'ro', lazy => 1, builder => '_build_groups');
@@ -302,6 +309,12 @@ Note that this is cached the first time you call it.
 =head2 remove_from_group
 
     $user->remove_from_group('Moderator');
+
+=head2 member_of_community
+
+    $user->member_of_community('opusvl');
+
+Returns true if the person is a member of the community with that code.
 
 =head1 LICENSE AND COPYRIGHT
 

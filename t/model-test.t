@@ -54,11 +54,18 @@ ok my $community = Community->create({
     code => 'hackers',
     name => 'Hackers',
 });
+ok my $alt = Community->create({
+    code => 'alt',
+    name => 'Alternative',
+});
 $person->create_related('community_links', { community_id => $community->id });
 is $person->communities->count, 1;
+ok $person->member_of_community('hackers');
+ok !$person->member_of_community('alt');
 is $community->people->count, 1;
 
 $community->delete;
 is $org->people->count, 2;
+ok !$person->member_of_community('hackers');
 
 done_testing;
