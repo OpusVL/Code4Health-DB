@@ -17,6 +17,13 @@ sub by_name
     return $self->search(undef, { order_by => ['name'] });
 }
 
+sub lookup_code
+{
+    my $self = shift;
+    my $code = shift;
+    return $self->active->search({ code => $code })->single;
+}
+
 1;
 
 
@@ -31,6 +38,8 @@ Code4Health::DB::Schema::ResultSet::Community
 =head2 active
 
 =head2 by_name
+
+=head2 lookup_code
 
 =head1 ATTRIBUTES
 
