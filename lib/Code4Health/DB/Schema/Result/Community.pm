@@ -16,6 +16,11 @@ column name => {
     is_nullable => 0,
 };
 
+column code => {
+    data_type => 'varchar',
+    is_nullable => 0,
+};
+
 column status => {
     data_type => 'varchar',
     is_nullable => 0,
@@ -37,6 +42,8 @@ column updated => {
 
 has_many community_links => 'Code4Health::DB::Schema::Result::CommunityLink', 'community_id';
 many_to_many people => community_links => 'person';
+
+# FIXME: add a unique index on the code field.
 
 1;
 
