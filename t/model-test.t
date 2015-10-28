@@ -51,6 +51,7 @@ is $rs->count, 1;
 is $rs->first->username, 'test';
 
 ok my $community = Community->create({
+    code => 'hackers',
     name => 'Hackers',
 });
 $person->create_related('community_links', { community_id => $community->id });
