@@ -38,6 +38,7 @@ belongs_to community => 'Code4Health::DB::Schema::Result::Community',
         'foreign.id' => 'self.community_id'
     };
 
+unique_constraint comm_link => [qw/person_id community_id/];
 
 =head1 NAME
 

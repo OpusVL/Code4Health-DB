@@ -227,6 +227,61 @@ sub vanilla_roles
     return join ',', @roles;
 }
 
+sub _get_community
+{
+    my $self = shift;
+    my $code = shift;
+    return 0 unless $code;
+    my $schema = $self->result_source->schema;
+    my $c = $schema->resultset('Community');
+    return $c->active->search({ code => $code })->single;
+}
+
+sub join_community
+{
+    my $self = shift;
+    my $code = shift;
+    my $community = $self->_get_community($code);
+    unless($community)
+    {
+        return { error => 'Unable to find community' };
+    }
+    my $error = '';
+    try
+    {
+        $self->create_related('community_links', { community_id => $community->id });
+    }
+    catch
+    {
+        if($_ =~ /duplicate key value violates/)
+        {
+            $error = 'duplicate';
+        }
+        else
+        {
+            die $_;
+        }
+    };
+    if($error eq 'duplicate')
+    {
+        return { error => sprintf('Already a member of %s Community', $community->name) };
+    }
+    return { success => sprintf('Joined %s Community', $community->name) };
+}
+
+sub leave_community
+{
+    my $self = shift;
+    my $code = shift;
+    my $community = $self->_get_community($code);
+    unless($community)
+    {
+        return { error => 'Unable to find community' };
+    }
+    $self->search_related('community_links', { community_id => $community->id })->delete;
+    return { success => sprintf('Left %s Community', $community->name) };
+}
+
 1;
 
 =head1 NAME
@@ -315,6 +370,18 @@ Note that this is cached the first time you call it.
     $user->member_of_community('opusvl');
 
 Returns true if the person is a member of the community with that code.
+
+=head2 join_community
+
+Pass it a community code.
+
+Returns a hash containing a key of either error or success.
+
+=head2 leave_community
+
+Pass it a community code.
+
+Returns a hash containing a key of either error or success.
 
 =head1 LICENSE AND COPYRIGHT
 

@@ -67,5 +67,18 @@ is $community->people->count, 1;
 $community->delete;
 is $org->people->count, 2;
 ok !$person->member_of_community('hackers');
+my $res = $person->join_community('alt');
+eq_or_diff $res, { success => 'Joined Alternative Community' };
+$res = $person->join_community('alt');
+ok $person->member_of_community('alt');
+eq_or_diff $res, { error => 'Already a member of Alternative Community' };
+$res = $person->join_community('hackers');
+eq_or_diff $res, { error => 'Unable to find community' };
+$res = $person->leave_community('alt');
+eq_or_diff $res, { success => 'Left Alternative Community' };
+$res = $person->leave_community('alt');# don't really care
+eq_or_diff $res, { success => 'Left Alternative Community' };
+$res = $person->leave_community('hackers');
+eq_or_diff $res, { error => 'Unable to find community' };
 
 done_testing;

@@ -17,7 +17,8 @@ CREATE TABLE community_links (
   person_id integer NOT NULL,
   community_id integer NOT NULL,
   created timestamp NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  CONSTRAINT comm_link UNIQUE (person_id, community_id)
 );
 CREATE INDEX community_links_idx_community_id on community_links (community_id);
 CREATE INDEX community_links_idx_person_id on community_links (person_id);
