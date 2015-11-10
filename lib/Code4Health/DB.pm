@@ -10,11 +10,11 @@ Code4Health::DB - Data layer for the Code4Health system.
 
 =head1 VERSION
 
-Version 0.09
+Version 0.10
 
 =cut
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 
 
