@@ -12,13 +12,17 @@ sub add_user
     my $self = shift;
     my $data = shift;
     my $schema = $self->result_source->schema;
-    my $ldap = $schema->ldap_client;
-    my $guard = $schema->txn_scope_guard;
     my $password = delete $data->{password};
     my $username = $data->{username};
     my $fullname = $data->{full_name};
     my $surname = $data->{surname};
-    my $user = $self->create($data);
+
+    my $user = $self->search({ email_address => $username })->first;
+    return ($user, 1) if $user;
+
+    $user = $self->create($data);
+    my $ldap = $schema->ldap_client;
+    my $guard = $schema->txn_scope_guard;
     my $user_id = $self->next_uid;
     $ldap->add_user($username, $fullname, $surname, $password, $self->group_id, $user_id);
     $guard->commit;
@@ -39,7 +43,7 @@ sub _build_group_id
 sub next_uid
 {
     my $self = shift;
-    
+
     my $next_uid;
     my $query = 'select nextval(?);';
     $self->result_source->storage->dbh_do(sub {
@@ -50,7 +54,7 @@ sub next_uid
     return $next_uid;
 }
 
-sub initdb 
+sub initdb
 {
     my $self = shift;
     # setup sequence
@@ -76,7 +80,7 @@ Code4Health::DB::Schema::ResultSet::Person
 
 =head2 add_user
 
-Create a user.  Use this method rather than create directly to ensure the 
+Create a user.  Use this method rather than create directly to ensure the
 corresponding LDAP user is created.
 
 =head2 initdb
