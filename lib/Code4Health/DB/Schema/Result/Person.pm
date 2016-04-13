@@ -101,7 +101,7 @@ column email_preferences => {
 column show_membership => {
     data_type => 'boolean',
     is_nullable => 0,
-    default => 0
+    default_value => 0
 };
 
 belongs_to prf_owner => 'OpusVL::Preferences::Schema::Result::PrfOwner',
