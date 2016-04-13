@@ -98,6 +98,12 @@ column email_preferences => {
     is_nullable => 1,
 };
 
+column show_membership => {
+    data_type => 'boolean',
+    is_nullable => 0,
+    default => 0
+};
+
 belongs_to prf_owner => 'OpusVL::Preferences::Schema::Result::PrfOwner',
     {
         'foreign.prf_owner_id'      => 'self.id',
