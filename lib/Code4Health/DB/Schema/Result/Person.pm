@@ -133,7 +133,9 @@ sub check_password
             $self->_ldap_client->authenticate($self->username, $password);
         }
         catch {
-            if ($_->$_isa('failure::code4health::ldap::authenticationfailure')) {
+            if ($_->$_isa('failure::code4health::ldap::authenticationfailure')
+                || $_->$_isa('failure::code4health::ldap::noobject')) 
+            {
                 return 0;
             }
 
