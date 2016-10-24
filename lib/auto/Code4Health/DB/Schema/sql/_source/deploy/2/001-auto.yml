@@ -1,0 +1,1649 @@
+---
+schema:
+  procedures: {}
+  tables:
+    communities:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        code:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: code
+          order: 3
+          size:
+            - 0
+        created:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created
+          order: 5
+          size:
+            - 0
+        id:
+          data_type: int
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 0
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 2
+          size:
+            - 0
+        status:
+          data_type: varchar
+          default_value: active
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: status
+          order: 4
+          size:
+            - 0
+        updated:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: updated
+          order: 6
+          size:
+            - 0
+      indices: []
+      name: communities
+      options: []
+      order: 1
+    community_links:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 0
+          expression: ''
+          fields:
+            - person_id
+            - community_id
+          match_type: ''
+          name: comm_link
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - community_id
+          match_type: ''
+          name: community_links_fk_community_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: communities
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - person_id
+          match_type: ''
+          name: community_links_fk_person_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: people
+          type: FOREIGN KEY
+      fields:
+        community_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: community_id
+          order: 3
+          size:
+            - 0
+        created:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created
+          order: 4
+          size:
+            - 0
+        id:
+          data_type: int
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 0
+        person_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: person_id
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - community_id
+          name: community_links_idx_community_id
+          options: []
+          type: NORMAL
+        - fields:
+            - person_id
+          name: community_links_idx_person_id
+          options: []
+          type: NORMAL
+      name: community_links
+      options: []
+      order: 12
+    email_verifications:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - hash
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        email:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: email
+          order: 3
+          size:
+            - 0
+        expiry:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: expiry
+          order: 2
+          size:
+            - 0
+        hash:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: hash
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: email_verifications
+      options: []
+      order: 2
+    organisations:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - code
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - prf_id
+            - prf_owner_type_id
+          match_type: ''
+          name: organisations_fk_prf_id_prf_owner_type_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - prf_owner_id
+            - prf_owner_type_id
+          reference_table: prf_owners
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - prf_owner_type_id
+          match_type: ''
+          name: organisations_fk_prf_owner_type_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - prf_owner_type_id
+          reference_table: prf_owner_type
+          type: FOREIGN KEY
+      fields:
+        address1:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: address1
+          order: 8
+          size:
+            - 0
+        address2:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: address2
+          order: 9
+          size:
+            - 0
+        address3:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: address3
+          order: 10
+          size:
+            - 0
+        address4:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: address4
+          order: 11
+          size:
+            - 0
+        address5:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: address5
+          order: 12
+          size:
+            - 0
+        amended_record_indicator:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: amended_record_indicator
+          order: 21
+          size:
+            - 0
+        close_date:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: close_date
+          order: 15
+          size:
+            - 0
+        code:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: code
+          order: 1
+          size:
+            - 0
+        contact_phone_number:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: contact_phone_number
+          order: 20
+          size:
+            - 0
+        created:
+          data_type: timestamptz
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created
+          order: 3
+          size:
+            - 0
+        high_level_health_geography:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: high_level_health_geography
+          order: 7
+          size:
+            - 0
+        import_file:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: import_file
+          order: 2
+          size:
+            - 0
+        join_parent_date:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: join_parent_date
+          order: 18
+          size:
+            - 0
+        left_parent_date:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: left_parent_date
+          order: 19
+          size:
+            - 0
+        name:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 5
+          size:
+            - 0
+        national_grouping:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: national_grouping
+          order: 6
+          size:
+            - 0
+        open_date:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: open_date
+          order: 14
+          size:
+            - 0
+        organisation_sub_type_code:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: organisation_sub_type_code
+          order: 16
+          size:
+            - 0
+        parent_organisation_code:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: parent_organisation_code
+          order: 17
+          size:
+            - 0
+        postcode:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: postcode
+          order: 13
+          size:
+            - 0
+        prf_id:
+          data_type: int
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: prf_id
+          order: 31
+          size:
+            - 0
+        prf_owner_type_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: prf_owner_type_id
+          order: 32
+          size:
+            - 0
+        unknown1:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: unknown1
+          order: 22
+          size:
+            - 0
+        unknown2:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: unknown2
+          order: 23
+          size:
+            - 0
+        unknown3:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: unknown3
+          order: 24
+          size:
+            - 0
+        unknown4:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: unknown4
+          order: 25
+          size:
+            - 0
+        unknown5:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: unknown5
+          order: 26
+          size:
+            - 0
+        unknown6:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: unknown6
+          order: 27
+          size:
+            - 0
+        unknown7:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: unknown7
+          order: 28
+          size:
+            - 0
+        unknown8:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: unknown8
+          order: 29
+          size:
+            - 0
+        unknown9:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: unknown9
+          order: 30
+          size:
+            - 0
+        updated:
+          data_type: timestamptz
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: updated
+          order: 4
+          size:
+            - 0
+      indices:
+        - fields:
+            - prf_id
+            - prf_owner_type_id
+          name: organisations_idx_prf_id_prf_owner_type_id
+          options: []
+          type: NORMAL
+        - fields:
+            - prf_owner_type_id
+          name: organisations_idx_prf_owner_type_id
+          options: []
+          type: NORMAL
+      name: organisations
+      options: []
+      order: 6
+    people:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+            - prf_owner_type_id
+          match_type: ''
+          name: people_fk_id_prf_owner_type_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - prf_owner_id
+            - prf_owner_type_id
+          reference_table: prf_owners
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - prf_owner_type_id
+          match_type: ''
+          name: people_fk_prf_owner_type_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - prf_owner_type_id
+          reference_table: prf_owner_type
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - primary_organisation_id
+          match_type: ''
+          name: people_fk_primary_organisation_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - code
+          reference_table: organisations
+          type: FOREIGN KEY
+      fields:
+        created:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created
+          order: 2
+          size:
+            - 0
+        email_address:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: email_address
+          order: 9
+          size:
+            - 0
+        email_preferences:
+          data_type: 'text[]'
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: email_preferences
+          order: 17
+          size:
+            - 0
+        first_name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: first_name
+          order: 7
+          size:
+            - 0
+        full_name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: full_name
+          order: 8
+          size:
+            - 0
+        id:
+          data_type: int
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 0
+        password_reset_expiry:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: password_reset_expiry
+          order: 14
+          size:
+            - 0
+        password_reset_hash:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: password_reset_hash
+          order: 13
+          size:
+            - 0
+        prf_owner_type_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: prf_owner_type_id
+          order: 12
+          size:
+            - 0
+        primary_organisation_id:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: primary_organisation_id
+          order: 10
+          size:
+            - 0
+        primary_organisation_other:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: primary_organisation_other
+          order: 11
+          size:
+            - 0
+        registrant_category:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: registrant_category
+          order: 15
+          size:
+            - 0
+        registrant_category_other:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: registrant_category_other
+          order: 16
+          size:
+            - 0
+        show_membership:
+          data_type: boolean
+          default_value: 0
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: show_membership
+          order: 18
+          size:
+            - 0
+        surname:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: surname
+          order: 5
+          size:
+            - 0
+        title:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: title
+          order: 6
+          size:
+            - 0
+        updated:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: updated
+          order: 3
+          size:
+            - 0
+        username:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: username
+          order: 4
+          size:
+            - 0
+      indices:
+        - fields:
+            - id
+            - prf_owner_type_id
+          name: people_idx_id_prf_owner_type_id
+          options: []
+          type: NORMAL
+        - fields:
+            - prf_owner_type_id
+          name: people_idx_prf_owner_type_id
+          options: []
+          type: NORMAL
+        - fields:
+            - primary_organisation_id
+          name: people_idx_primary_organisation_id
+          options: []
+          type: NORMAL
+      name: people
+      options: []
+      order: 9
+    prf_default_values:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - prf_owner_type_id
+            - name
+          match_type: ''
+          name: prf_default_values_fk_prf_owner_type_id_name
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - prf_owner_type_id
+            - name
+          reference_table: prf_defaults
+          type: FOREIGN KEY
+      fields:
+        display_order:
+          data_type: int
+          default_value: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: display_order
+          order: 5
+          size:
+            - 0
+        id:
+          data_type: int
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 0
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 4
+          size:
+            - 0
+        prf_owner_type_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: prf_owner_type_id
+          order: 3
+          size:
+            - 0
+        value:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: value
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - prf_owner_type_id
+            - name
+          name: prf_default_values_idx_prf_owner_type_id_name
+          options: []
+          type: NORMAL
+      name: prf_default_values
+      options: []
+      order: 7
+    prf_defaults:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - prf_owner_type_id
+            - name
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - prf_owner_type_id
+          match_type: ''
+          name: prf_defaults_fk_prf_owner_type_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - prf_owner_type_id
+          reference_table: prf_owner_type
+          type: FOREIGN KEY
+      fields:
+        active:
+          data_type: boolean
+          default_value: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: active
+          order: 7
+          size:
+            - 0
+        ajax_validate:
+          data_type: boolean
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: ajax_validate
+          order: 12
+          size:
+            - 0
+        audit:
+          data_type: boolean
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: audit
+          order: 9
+          size:
+            - 0
+        comment:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: comment
+          order: 5
+          size:
+            - 0
+        confirmation_required:
+          data_type: boolean
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: confirmation_required
+          order: 14
+          size:
+            - 0
+        data_type:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: data_type
+          order: 4
+          size:
+            - 0
+        default_value:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: default_value
+          order: 3
+          size:
+            - 0
+        display_on_search:
+          data_type: boolean
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: display_on_search
+          order: 10
+          size:
+            - 0
+        display_order:
+          data_type: int
+          default_value: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: display_order
+          order: 13
+          size:
+            - 0
+        hidden:
+          data_type: boolean
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: hidden
+          order: 8
+          size:
+            - 0
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: name
+          order: 2
+          size:
+            - 0
+        prf_owner_type_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: prf_owner_type_id
+          order: 1
+          size:
+            - 0
+        required:
+          data_type: boolean
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: required
+          order: 6
+          size:
+            - 0
+        unique_field:
+          data_type: boolean
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: unique_field
+          order: 11
+          size:
+            - 0
+      indices:
+        - fields:
+            - prf_owner_type_id
+          name: prf_defaults_idx_prf_owner_type_id
+          options: []
+          type: NORMAL
+      name: prf_defaults
+      options: []
+      order: 4
+    prf_owner_type:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - prf_owner_type_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 0
+          expression: ''
+          fields:
+            - owner_resultset
+          match_type: ''
+          name: prf_owner_type__resultset
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 0
+          expression: ''
+          fields:
+            - owner_table
+          match_type: ''
+          name: prf_owner_type__table
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+      fields:
+        owner_resultset:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: owner_resultset
+          order: 3
+          size:
+            - 0
+        owner_table:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: owner_table
+          order: 2
+          size:
+            - 0
+        prf_owner_type_id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: prf_owner_type_id
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: prf_owner_type
+      options: []
+      order: 3
+    prf_owners:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - prf_owner_id
+            - prf_owner_type_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - prf_owner_type_id
+          match_type: ''
+          name: prf_owners_fk_prf_owner_type_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - prf_owner_type_id
+          reference_table: prf_owner_type
+          type: FOREIGN KEY
+      fields:
+        prf_owner_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: prf_owner_id
+          order: 1
+          size:
+            - 0
+        prf_owner_type_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: prf_owner_type_id
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - prf_owner_type_id
+          name: prf_owners_idx_prf_owner_type_id
+          options: []
+          type: NORMAL
+      name: prf_owners
+      options: []
+      order: 5
+    prf_preferences:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - prf_preference_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 0
+          expression: ''
+          fields:
+            - prf_preference_id
+            - prf_owner_type_id
+            - name
+          match_type: ''
+          name: prf_preferences_prf_preference_id_prf_owner_type_id_name
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - prf_owner_id
+            - prf_owner_type_id
+          match_type: ''
+          name: prf_preferences_fk_prf_owner_id_prf_owner_type_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - prf_owner_id
+            - prf_owner_type_id
+          reference_table: prf_owners
+          type: FOREIGN KEY
+      fields:
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: name
+          order: 4
+          size:
+            - 0
+        prf_owner_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: prf_owner_id
+          order: 2
+          size:
+            - 0
+        prf_owner_type_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: prf_owner_type_id
+          order: 3
+          size:
+            - 0
+        prf_preference_id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 1
+          name: prf_preference_id
+          order: 1
+          size:
+            - 0
+        value:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: value
+          order: 5
+          size:
+            - 0
+      indices:
+        - fields:
+            - prf_owner_id
+            - prf_owner_type_id
+          name: prf_preferences_idx_prf_owner_id_prf_owner_type_id
+          options: []
+          type: NORMAL
+      name: prf_preferences
+      options: []
+      order: 8
+    prf_unique_vals:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 0
+          expression: ''
+          fields:
+            - value_id
+            - prf_owner_type_id
+            - name
+          match_type: ''
+          name: prf_unique_vals_value_id_prf_owner_type_id_name
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 0
+          expression: ''
+          fields:
+            - value
+            - prf_owner_type_id
+            - name
+          match_type: ''
+          name: prf_unique_vals_value_prf_owner_type_id_name
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - prf_owner_type_id
+            - name
+          match_type: ''
+          name: prf_unique_vals_fk_prf_owner_type_id_name
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - prf_owner_type_id
+            - name
+          reference_table: prf_defaults
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - value_id
+            - prf_owner_type_id
+            - name
+          match_type: ''
+          name: prf_unique_vals_fk_value_id_prf_owner_type_id_name
+          on_delete: CASCADE
+          on_update: ''
+          options: []
+          reference_fields:
+            - prf_preference_id
+            - prf_owner_type_id
+            - name
+          reference_table: prf_preferences
+          type: FOREIGN KEY
+      fields:
+        id:
+          data_type: int
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 0
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: name
+          order: 5
+          size:
+            - 0
+        prf_owner_type_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: prf_owner_type_id
+          order: 4
+          size:
+            - 0
+        value:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 1
+          name: value
+          order: 3
+          size:
+            - 0
+        value_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: value_id
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - prf_owner_type_id
+            - name
+          name: prf_unique_vals_idx_prf_owner_type_id_name
+          options: []
+          type: NORMAL
+        - fields:
+            - value_id
+            - prf_owner_type_id
+            - name
+          name: prf_unique_vals_idx_value_id_prf_owner_type_id_name
+          options: []
+          type: NORMAL
+      name: prf_unique_vals
+      options: []
+      order: 10
+    secondary_organisation_links:
+      constraints:
+        - deferrable: 0
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - organisation_id
+          match_type: ''
+          name: secondary_organisation_links_fk_organisation_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - code
+          reference_table: organisations
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - person_id
+          match_type: ''
+          name: secondary_organisation_links_fk_person_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: people
+          type: FOREIGN KEY
+      fields:
+        created:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created
+          order: 4
+          size:
+            - 0
+        id:
+          data_type: int
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 0
+        organisation_id:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: organisation_id
+          order: 3
+          size:
+            - 0
+        person_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: person_id
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - organisation_id
+          name: secondary_organisation_links_idx_organisation_id
+          options: []
+          type: NORMAL
+        - fields:
+            - person_id
+          name: secondary_organisation_links_idx_person_id
+          options: []
+          type: NORMAL
+      name: secondary_organisation_links
+      options: []
+      order: 11
+  triggers: {}
+  views: {}
+translator:
+  add_drop_table: 0
+  filename: ~
+  no_comments: 0
+  parser_args:
+    sources:
+      - Community
+      - CommunityLink
+      - CustomDataUniqueValues
+      - EmailVerification
+      - Organisation
+      - Person
+      - PrfDefault
+      - PrfDefaultValues
+      - PrfOwner
+      - PrfOwnerType
+      - PrfPreference
+      - SecondaryOrganisationLink
+  parser_type: SQL::Translator::Parser::DBIx::Class
+  producer_args: {}
+  producer_type: SQL::Translator::Producer::YAML
+  show_warnings: 0
+  trace: 0
+  version: 0.11021
