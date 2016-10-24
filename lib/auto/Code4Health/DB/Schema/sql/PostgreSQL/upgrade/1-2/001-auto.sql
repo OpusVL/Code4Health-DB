@@ -4,34 +4,47 @@
 BEGIN;
 
 ;
-DROP TABLE email_verifications CASCADE;
+CREATE TABLE "communities" (
+  "id" serial NOT NULL,
+  "name" character varying NOT NULL,
+  "code" character varying NOT NULL,
+  "status" character varying DEFAULT 'active' NOT NULL,
+  "created" timestamp NOT NULL,
+  "updated" timestamp NOT NULL,
+  PRIMARY KEY ("id")
+);
 
 ;
-DROP TABLE prf_owner_type CASCADE;
+CREATE TABLE "community_links" (
+  "id" serial NOT NULL,
+  "person_id" integer NOT NULL,
+  "community_id" integer NOT NULL,
+  "created" timestamp NOT NULL,
+  PRIMARY KEY ("id"),
+  CONSTRAINT "comm_link" UNIQUE ("person_id", "community_id")
+);
+CREATE INDEX "community_links_idx_community_id" on "community_links" ("community_id");
+CREATE INDEX "community_links_idx_person_id" on "community_links" ("person_id");
 
 ;
-DROP TABLE prf_defaults CASCADE;
+ALTER TABLE "community_links" ADD CONSTRAINT "community_links_fk_community_id" FOREIGN KEY ("community_id")
+  REFERENCES "communities" ("id") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE;
 
 ;
-DROP TABLE prf_owners CASCADE;
+ALTER TABLE "community_links" ADD CONSTRAINT "community_links_fk_person_id" FOREIGN KEY ("person_id")
+  REFERENCES "people" ("id") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE;
 
 ;
-DROP TABLE organisations CASCADE;
+ALTER TABLE people ADD COLUMN registrant_category text;
 
 ;
-DROP TABLE prf_default_values CASCADE;
+ALTER TABLE people ADD COLUMN registrant_category_other text;
 
 ;
-DROP TABLE prf_preferences CASCADE;
+ALTER TABLE people ADD COLUMN email_preferences text[];
 
 ;
-DROP TABLE people CASCADE;
-
-;
-DROP TABLE prf_unique_vals CASCADE;
-
-;
-DROP TABLE secondary_organisation_links CASCADE;
+ALTER TABLE people ADD COLUMN show_membership boolean DEFAULT '0' NOT NULL;
 
 ;
 

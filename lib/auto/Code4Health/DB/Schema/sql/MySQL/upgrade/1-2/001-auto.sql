@@ -4,63 +4,41 @@
 BEGIN;
 
 ;
-DROP TABLE email_verifications;
+SET foreign_key_checks=0;
 
 ;
-DROP TABLE prf_owner_type;
+CREATE TABLE `communities` (
+  `id` integer NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'active',
+  `created` timestamp NOT NULL,
+  `updated` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
 
 ;
-ALTER TABLE prf_defaults DROP FOREIGN KEY prf_defaults_fk_prf_owner_type_id;
+CREATE TABLE `community_links` (
+  `id` integer NOT NULL auto_increment,
+  `person_id` integer NOT NULL,
+  `community_id` integer NOT NULL,
+  `created` timestamp NOT NULL,
+  INDEX `community_links_idx_community_id` (`community_id`),
+  INDEX `community_links_idx_person_id` (`person_id`),
+  PRIMARY KEY (`id`),
+  UNIQUE `comm_link` (`person_id`, `community_id`),
+  CONSTRAINT `community_links_fk_community_id` FOREIGN KEY (`community_id`) REFERENCES `communities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `community_links_fk_person_id` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
 
 ;
-DROP TABLE prf_defaults;
+SET foreign_key_checks=1;
 
 ;
-ALTER TABLE prf_owners DROP FOREIGN KEY prf_owners_fk_prf_owner_type_id;
-
-;
-DROP TABLE prf_owners;
-
-;
-ALTER TABLE organisations DROP FOREIGN KEY organisations_fk_prf_id_prf_owner_type_id,
-                          DROP FOREIGN KEY organisations_fk_prf_owner_type_id;
-
-;
-DROP TABLE organisations;
-
-;
-ALTER TABLE prf_default_values DROP FOREIGN KEY prf_default_values_fk_prf_owner_type_id_name;
-
-;
-DROP TABLE prf_default_values;
-
-;
-ALTER TABLE prf_preferences DROP FOREIGN KEY prf_preferences_fk_prf_owner_id_prf_owner_type_id;
-
-;
-DROP TABLE prf_preferences;
-
-;
-ALTER TABLE people DROP FOREIGN KEY people_fk_id_prf_owner_type_id,
-                   DROP FOREIGN KEY people_fk_prf_owner_type_id,
-                   DROP FOREIGN KEY people_fk_primary_organisation_id;
-
-;
-DROP TABLE people;
-
-;
-ALTER TABLE prf_unique_vals DROP FOREIGN KEY prf_unique_vals_fk_prf_owner_type_id_name,
-                            DROP FOREIGN KEY prf_unique_vals_fk_value_id_prf_owner_type_id_name;
-
-;
-DROP TABLE prf_unique_vals;
-
-;
-ALTER TABLE secondary_organisation_links DROP FOREIGN KEY secondary_organisation_links_fk_organisation_id,
-                                         DROP FOREIGN KEY secondary_organisation_links_fk_person_id;
-
-;
-DROP TABLE secondary_organisation_links;
+ALTER TABLE people ADD COLUMN registrant_category text NULL,
+                   ADD COLUMN registrant_category_other text NULL,
+                   ADD COLUMN email_preferences text[] NULL,
+                   ADD COLUMN show_membership enum('0','1') NOT NULL DEFAULT '0';
 
 ;
 

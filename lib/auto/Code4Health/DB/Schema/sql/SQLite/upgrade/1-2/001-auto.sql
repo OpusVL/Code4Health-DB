@@ -4,34 +4,45 @@
 BEGIN;
 
 ;
-DROP TABLE email_verifications;
+CREATE TABLE communities (
+  id INTEGER PRIMARY KEY NOT NULL,
+  name varchar NOT NULL,
+  code varchar NOT NULL,
+  status varchar NOT NULL DEFAULT 'active',
+  created timestamp NOT NULL,
+  updated timestamp NOT NULL
+);
 
 ;
-DROP TABLE prf_owner_type;
+CREATE TABLE community_links (
+  id INTEGER PRIMARY KEY NOT NULL,
+  person_id integer NOT NULL,
+  community_id integer NOT NULL,
+  created timestamp NOT NULL,
+  FOREIGN KEY (community_id) REFERENCES communities(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (person_id) REFERENCES people(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 ;
-DROP TABLE prf_defaults;
+CREATE INDEX community_links_idx_community_id ON community_links (community_id);
 
 ;
-DROP TABLE prf_owners;
+CREATE INDEX community_links_idx_person_id ON community_links (person_id);
 
 ;
-DROP TABLE organisations;
+CREATE UNIQUE INDEX comm_link ON community_links (person_id, community_id);
 
 ;
-DROP TABLE prf_default_values;
+ALTER TABLE people ADD COLUMN registrant_category text;
 
 ;
-DROP TABLE prf_preferences;
+ALTER TABLE people ADD COLUMN registrant_category_other text;
 
 ;
-DROP TABLE people;
+ALTER TABLE people ADD COLUMN email_preferences text[];
 
 ;
-DROP TABLE prf_unique_vals;
-
-;
-DROP TABLE secondary_organisation_links;
+ALTER TABLE people ADD COLUMN show_membership boolean NOT NULL DEFAULT 0;
 
 ;
 
