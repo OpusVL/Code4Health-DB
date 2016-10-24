@@ -104,6 +104,12 @@ column show_membership => {
     default_value => 0
 };
 
+column is_community_admin => {
+    data_type => 'boolean',
+    is_nullable => 0,
+    default_value => 0
+};
+
 belongs_to prf_owner => 'OpusVL::Preferences::Schema::Result::PrfOwner',
     {
         'foreign.prf_owner_id'      => 'self.id',

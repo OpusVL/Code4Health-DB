@@ -30,7 +30,7 @@ sub _setup_ldap_client
     return $ldap;
 }
 
-sub schema_version { 2 }
+sub schema_version { 3 }
 
 __PACKAGE__->load_namespaces();
 
