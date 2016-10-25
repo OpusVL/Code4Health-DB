@@ -1,6 +1,7 @@
 requires 'DBIx::Class' => 0;
 requires 'DBIx::Class::Candy' => 0;
 requires 'DBIx::Class::DeploymentHandler' => 0;
+requires 'List::Util' => '1.33';
 requires 'OpusVL::AppKit' => 0;
 requires 'OpusVL::Preferences' => 0.13;
 requires 'OpusVL::AppKitX::PasswordReset' => 0;

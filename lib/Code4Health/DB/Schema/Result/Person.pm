@@ -5,6 +5,7 @@ use Moose;
 use MooseX::NonMoose;
 use Try::Tiny;
 use Safe::Isa;
+use List::Util qw/any/;
 with 'OpusVL::Preferences::RolesFor::Result::PrfOwner';
 with 'OpusVL::AppKitX::PasswordReset::RolesFor::Result';
 
@@ -296,6 +297,12 @@ sub leave_community
     return { success => sprintf('Left %s Community', $community->name) };
 }
 
+sub is_verified
+{
+    my $self = shift;
+    return any {$_ eq 'Verified'} $self->groups;
+}
+
 1;
 
 =head1 NAME
@@ -396,6 +403,11 @@ Returns a hash containing a key of either error or success.
 Pass it a community code.
 
 Returns a hash containing a key of either error or success.
+
+=head2 is_verified
+
+Returns a true value if the user's email address has been verified. This
+involves them being in the C<Verified> group in LDAP.
 
 =head1 LICENSE AND COPYRIGHT
 
