@@ -52,7 +52,7 @@ has_field 'future_plans' => (
 );
 has_field 'help' => (
     type => 'TextArea',
-    label => "How can you help?",
+    label => "How can the community get involved?",
 );
 
 has_field 'submit' => (
