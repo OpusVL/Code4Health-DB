@@ -307,7 +307,7 @@ sub leave_community
 sub is_verified
 {
     my $self = shift;
-    return any {$_ eq 'Verified'} $self->groups;
+    return any {$_ eq 'Verified'} @{$self->groups};
 }
 
 1;
