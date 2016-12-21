@@ -153,7 +153,10 @@ sub check_password
 
 after delete => sub {
     my $self = shift;
-    return $self->_ldap_client->remove_user($self->username);
+    return try {
+        $self->_ldap_client->remove_user($self->username)
+    }
+    catch { } # What do I do
 };
 
 around update => sub {
@@ -196,14 +199,18 @@ has groups => (is => 'ro', lazy => 1, builder => '_build_groups');
 sub _build_ldap_info
 {
     my $self = shift;
-    my $info = $self->_ldap_client->get_user_info($self->username);
-    return $info;
+    return try {
+        $self->_ldap_client->get_user_info($self->username)
+    }
+    catch {
+        +{}
+    }
 }
 
 sub _build_groups
 {
     my $self = shift;
-    return $self->ldap_info->{groups};
+    return $self->ldap_info->{groups} || [];
 }
 
 sub _ldap_client
