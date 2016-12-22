@@ -2,6 +2,10 @@ Revision history for Code4Health-DB
 
 {{ $NEXT }}
 
+0.16      2016-12-22 13:46:23+00:00 Europe/London
+
+  - Fixes for various LDAP-side bugs
+
 0.15      2016-10-31 15:05:41+00:00 Europe/London
 
   - Changed label of Post Update form field
