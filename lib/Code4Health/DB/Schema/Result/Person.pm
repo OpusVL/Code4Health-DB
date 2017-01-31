@@ -200,7 +200,7 @@ sub _build_ldap_info
 {
     my $self = shift;
     return try {
-        $self->_ldap_client->get_user_info($self->username)
+        $self->_ldap_client->get_user_info($self->username) || {}
     }
     catch {
         +{}
