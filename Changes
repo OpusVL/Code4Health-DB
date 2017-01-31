@@ -2,6 +2,10 @@ Revision history for Code4Health-DB
 
 {{ $NEXT }}
 
+0.17      2017-01-31 13:08:56+00:00 Europe/London
+
+  - That one method was still returning undef sometimes. Now it doesn't.
+
 0.16      2016-12-22 13:46:23+00:00 Europe/London
 
   - Fixes for various LDAP-side bugs
