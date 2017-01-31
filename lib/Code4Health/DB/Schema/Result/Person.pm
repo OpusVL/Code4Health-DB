@@ -203,6 +203,7 @@ sub _build_ldap_info
         $self->_ldap_client->get_user_info($self->username) || {}
     }
     catch {
+        warn $_;
         +{}
     }
 }
